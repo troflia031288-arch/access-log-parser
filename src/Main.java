@@ -1,30 +1,30 @@
-import java.io.File;//импорт класса для работы с файлами
-import java.util.Scanner; //импорт класса для работы с консолью
+import java.io.File;//РёРјРїРѕСЂС‚ РєР»Р°СЃСЃР° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ С„Р°Р№Р»Р°РјРё
+import java.util.Scanner; //РёРјРїРѕСЂС‚ РєР»Р°СЃСЃР° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РєРѕРЅСЃРѕР»СЊСЋ
 
 public class Main {
     public static void main(String[] args) {
         int count = 0;
 
         while (true) {
-            System.out.println("Укажите путь к файлу: ");
+            System.out.println("РЈРєР°Р¶РёС‚Рµ РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ: ");
             String path = new Scanner(System.in).nextLine();
             File file = new File(path);
             boolean fileExists = file.exists();
             boolean isDirectory = file.isDirectory();
 
-                if (fileExists == false) {
-                    System.out.println("Указанный файл не существует");
-                    continue;
-                }
-                if (isDirectory == true) {
-                    System.out.println("Указанный путь является является путём к папке, а не к файлу");
-                    continue;
-                }
+            if (fileExists == false) {
+                System.out.println("РЈРєР°Р·Р°РЅРЅС‹Р№ С„Р°Р№Р» РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚");
+                continue;
+            }
+            if (isDirectory == true) {
+                System.out.println("РЈРєР°Р·Р°РЅРЅС‹Р№ РїСѓС‚СЊ СЏРІР»СЏРµС‚СЃСЏ СЏРІР»СЏРµС‚СЃСЏ РїСѓС‚С‘Рј Рє РїР°РїРєРµ, Р° РЅРµ Рє С„Р°Р№Р»Сѓ");
+                continue;
+            }
 
             else {
                 count++;
-                System.out.println("Путь указан верно");
-                System.out.println("Это файл номер " + count);
+                System.out.println("РџСѓС‚СЊ СѓРєР°Р·Р°РЅ РІРµСЂРЅРѕ");
+                System.out.println("Р­С‚Рѕ С„Р°Р№Р» РЅРѕРјРµСЂ " + count);
 
             }
         }
