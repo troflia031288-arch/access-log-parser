@@ -6,7 +6,7 @@ public class Fraction {
 
     // Конструктор класса: дробь может быть создана с указанием числителя и знаменателя
     public Fraction(int numerator, int denominator) {
-        // Для знаменателя отрицательное значение недопустимо
+        // Для знаменателя отрицательное  значение недопустимо
         if (denominator <= 0) {
             throw new IllegalArgumentException("Знаменатель должен быть положительным");
         }
