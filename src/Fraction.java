@@ -1,44 +1,44 @@
 public class Fraction {
-    // Числитель - numerator - целое число, объекты дробей не могут изменять свое состояние
+    // Р§РёСЃР»РёС‚РµР»СЊ - numerator - С†РµР»РѕРµ С‡РёСЃР»Рѕ, РѕР±СЉРµРєС‚С‹ РґСЂРѕР±РµР№ РЅРµ РјРѕРіСѓС‚ РёР·РјРµРЅСЏС‚СЊ СЃРІРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
     private final int numerator;
-    // Знаменатель - denominator - целое число, объекты дробей не могут изменять свое состояние
+    // Р—РЅР°РјРµРЅР°С‚РµР»СЊ - denominator - С†РµР»РѕРµ С‡РёСЃР»Рѕ, РѕР±СЉРµРєС‚С‹ РґСЂРѕР±РµР№ РЅРµ РјРѕРіСѓС‚ РёР·РјРµРЅСЏС‚СЊ СЃРІРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
     private final int denominator;
 
-    // Конструктор класса: дробь может быть создана с указанием числителя и знаменателя
+    // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР°: РґСЂРѕР±СЊ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЃРѕР·РґР°РЅР° СЃ СѓРєР°Р·Р°РЅРёРµРј С‡РёСЃР»РёС‚РµР»СЏ Рё Р·РЅР°РјРµРЅР°С‚РµР»СЏ
     public Fraction(int numerator, int denominator) {
-        // Для знаменателя отрицательное значение недопустимо
+        // Р”Р»СЏ Р·РЅР°РјРµРЅР°С‚РµР»СЏ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РЅРµРґРѕРїСѓСЃС‚РёРјРѕ
         if (denominator <= 0) {
-            throw new IllegalArgumentException("Знаменатель должен быть положительным");
+            throw new IllegalArgumentException("Р—РЅР°РјРµРЅР°С‚РµР»СЊ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рј");
         }
         this.numerator = numerator;
         this.denominator = denominator;
     }
 
-    // Может вернуть строковое представление вида "числитель/знаменатель" toString()
+    // РњРѕР¶РµС‚ РІРµСЂРЅСѓС‚СЊ СЃС‚СЂРѕРєРѕРІРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РІРёРґР° "С‡РёСЃР»РёС‚РµР»СЊ/Р·РЅР°РјРµРЅР°С‚РµР»СЊ" toString()
     public String toString() {
         return numerator + "/" + denominator;
     }
 
-    // Может выполнять операции сложения дробей, результат - новая дробь
+    // РњРѕР¶РµС‚ РІС‹РїРѕР»РЅСЏС‚СЊ РѕРїРµСЂР°С†РёРё СЃР»РѕР¶РµРЅРёСЏ РґСЂРѕР±РµР№, СЂРµР·СѓР»СЊС‚Р°С‚ - РЅРѕРІР°СЏ РґСЂРѕР±СЊ
     public Fraction sum(Fraction other) {
         int newNumerator = this.numerator * other.denominator + other.numerator * this.denominator;
         int newDenominator = this.denominator * other.denominator;
         return new Fraction(newNumerator, newDenominator);
     }
 
-    // Может выполнять операции сложения дроби и целого числа, результат - новая дробь
+    // РњРѕР¶РµС‚ РІС‹РїРѕР»РЅСЏС‚СЊ РѕРїРµСЂР°С†РёРё СЃР»РѕР¶РµРЅРёСЏ РґСЂРѕР±Рё Рё С†РµР»РѕРіРѕ С‡РёСЃР»Р°, СЂРµР·СѓР»СЊС‚Р°С‚ - РЅРѕРІР°СЏ РґСЂРѕР±СЊ
     public Fraction sum(int integer) {
         return sum(new Fraction(integer, 1));
     }
 
-    // Может выполнять операции вычитания дробей, результат - новая дробь
+    // РњРѕР¶РµС‚ РІС‹РїРѕР»РЅСЏС‚СЊ РѕРїРµСЂР°С†РёРё РІС‹С‡РёС‚Р°РЅРёСЏ РґСЂРѕР±РµР№, СЂРµР·СѓР»СЊС‚Р°С‚ - РЅРѕРІР°СЏ РґСЂРѕР±СЊ
     public Fraction minus(Fraction other) {
         int newNumerator = this.numerator * other.denominator - other.numerator * this.denominator;
         int newDenominator = this.denominator * other.denominator;
         return new Fraction(newNumerator, newDenominator);
     }
 
-    // Может выполнять операции вычитания целого числа, результат - новая дробь
+    // РњРѕР¶РµС‚ РІС‹РїРѕР»РЅСЏС‚СЊ РѕРїРµСЂР°С†РёРё РІС‹С‡РёС‚Р°РЅРёСЏ С†РµР»РѕРіРѕ С‡РёСЃР»Р°, СЂРµР·СѓР»СЊС‚Р°С‚ - РЅРѕРІР°СЏ РґСЂРѕР±СЊ
     public Fraction minus(int integer) {
         return minus(new Fraction(integer, 1));
     }
