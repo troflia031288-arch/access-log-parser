@@ -1,32 +1,20 @@
-import java.io.File;//импорт класса для работы с файлами
-import java.util.Scanner; //импорт класса для работы с консолью
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        int count = 0;
+        Student student = new Student("Максим", 2, 4, 3, 5);
+        System.out.println(student);
 
-        while (true) {
-            System.out.println("Укажите путь к файлу: ");
-            String path = new Scanner(System.in).nextLine();
-            File file = new File(path);
-            boolean fileExists = file.exists();
-            boolean isDirectory = file.isDirectory();
+        student.addGrade(3);
+        System.out.println(student);
 
-            if (fileExists == false) {
-                System.out.println("Указанный файл не существует");
-                continue;
-            }
-            if (isDirectory == true) {
-                System.out.println("Указанный путь является является путём к папке, а не к файлу");
-                continue;
-            }
-
-            else {
-                count++;
-                System.out.println("Путь указан верно");
-                System.out.println("Это файл номер " + count);
-
-            }
+        try {
+            student.addGrade(1); // пытаемся добавить оценку не в установленном диапазоне
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
+
+        List<Integer> grades = student.getGrades();
+        System.out.println("Все оценки: " + grades);
     }
 }
