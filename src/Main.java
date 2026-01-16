@@ -1,32 +1,18 @@
-import java.io.File;//импорт класса для работы с файлами
-import java.util.Scanner; //импорт класса для работы с консолью
-
 public class Main {
-    public static void main(String[] args) {
-        int count = 0;
-
-        while (true) {
-            System.out.println("Укажите путь к файлу: ");
-            String path = new Scanner(System.in).nextLine();
-            File file = new File(path);
-            boolean fileExists = file.exists();
-            boolean isDirectory = file.isDirectory();
-
-            if (fileExists == false) {
-                System.out.println("Указанный файл не существует");
-                continue;
-            }
-            if (isDirectory == true) {
-                System.out.println("Указанный путь является является путём к папке, а не к файлу");
-                continue;
-            }
-
-            else {
-                count++;
-                System.out.println("Путь указан верно");
-                System.out.println("Это файл номер " + count);
-
-            }
+    public static void printLengths(Measurable[] measurables) {
+        for (Measurable measurable : measurables) {
+            System.out.println("Длина =  " + measurable.getLength());
         }
+    }
+
+    public static void main(String[] args) {
+        // Создаем объекты
+        Line line = new Line(new Point(1, 2), new Point(5, 6));
+        PolyLine polyline = new PolyLine(new Point(1, 2), new Point(5, 6), new Point(10, 11));
+        ClosedPolyLine closedPolyline = new ClosedPolyLine(new Point(0, 0), new Point(3, 4), new Point(6, 0));
+
+        // Передаем их в метод printLengths
+        Measurable[] shapes = {line, polyline, closedPolyline};
+        printLengths(shapes);
     }
 }
