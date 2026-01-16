@@ -13,18 +13,22 @@ class Fraction extends Number {
         return num + "/" + denum;
     }
 
+    @Override
     public double doubleValue() {
         return (double) num / denum; // double
     }
 
+    @Override
     public float floatValue() {
         return (float) num / denum; // float
     }
 
+    @Override
     public int intValue() {
         return num / denum; // int
     }
 
+    @Override
     public long longValue() {
         return num / denum; // long
     }
