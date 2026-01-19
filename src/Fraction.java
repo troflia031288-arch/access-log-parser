@@ -1,5 +1,6 @@
 class Fraction extends Number {
-    int num, denum; //числитель и знаменатель
+    private int num;   // числитель
+    private int denum; // знаменатель
 
     public Fraction(int num, int denum) {
         if (denum == 0) {
@@ -31,6 +32,14 @@ class Fraction extends Number {
     @Override
     public long longValue() {
         return num / denum; // long
+    }
+
+    public int getNumerator() {
+        return num;
+    }
+
+    public int getDenominator() {
+        return denum;
     }
 
 }
