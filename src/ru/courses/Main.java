@@ -1,7 +1,7 @@
 import ru.courses.geometry.ClosedPolyLine;
 import ru.courses.geometry.Line;
-import ru.courses.geometry.Measurable;
 import ru.courses.geometry.PolyLine;
+import ru.courses.geometry.Measurable;
 import ru.courses.geometry.Point;
 
 
