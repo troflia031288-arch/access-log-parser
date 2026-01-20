@@ -1,3 +1,5 @@
+package ru.courses.main;
+
 import ru.courses.geometry.ClosedPolyLine;
 import ru.courses.geometry.Line;
 import ru.courses.geometry.PolyLine;
