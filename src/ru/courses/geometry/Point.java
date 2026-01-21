@@ -1,5 +1,6 @@
 package ru.courses.geometry;
 
+
 public class Point {
 
     private final int x;
@@ -10,11 +11,8 @@ public class Point {
         this.y = y;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    @Override
+    public String toString() {
+        return "Point(" + x + ", " + y + ")";
     }
 }
