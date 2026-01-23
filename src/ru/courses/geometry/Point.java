@@ -10,6 +10,7 @@ public class Point implements Cloneable{
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
@@ -27,5 +28,11 @@ public class Point implements Cloneable{
         int result = Integer.hashCode(x);
         result = 31 * result + Integer.hashCode(y);
         return result;
+    }
+
+    // Строковое представление точки
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 }

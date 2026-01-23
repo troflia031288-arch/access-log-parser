@@ -1,28 +1,33 @@
 package ru.courses.main;
 
 import ru.courses.geometry.Point;
+import ru.courses.geometry.Line;
 
 public class Main {
     public static void main(String[] args) {
-        Point point1 = new Point(1, 7);
-        Point point2 = new Point(1, 7);
-        Point point3 = new Point(2, 8);
 
-        System.out.println("Точка point1 равна точке point2: " + point1.equals(point2));
-        System.out.println("Точка point1 равна точке point3: " + point1.equals(point3));
+        Point p1 = new Point(4, 6);
+        Point p2 = new Point(7, 2);
 
+        Line line1 = new Line(p1, p2);
+
+        Line line2 = null;
         try {
-            Point clonedPoint = (Point) point1.clone();
-            System.out.println("Склонированная точка: (" + clonedPoint.x + ", " + clonedPoint.y + ")");
-            System.out.println("Склонированная точка равна точке point1: " + clonedPoint.equals(point1));
-        }
-        catch (CloneNotSupportedException e)
-        {
+            line2 = (Line) line1.clone();
+        } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Хэш-код точки point1: " + point1.hashCode());
-        System.out.println("Хэш-код точки point2: " + point2.hashCode());
-        System.out.println("Хэш-код точки point3: " + point3.hashCode());
+        System.out.println("Линия 1: " + line1);
+        System.out.println("Линия 2: " + line2);
+        System.out.println("Линия 1 равна линии 2? " + line1.equals(line2));
+
+        try {
+            Point newEnd = new Point(8, 2);
+            line2 = new Line(p1, newEnd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
