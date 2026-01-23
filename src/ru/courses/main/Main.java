@@ -1,16 +1,28 @@
 package ru.courses.main;
 
 import ru.courses.geometry.Point;
-//import java.awt.Point;
-
 
 public class Main {
-
     public static void main(String[] args) {
-        Point myPoint = new Point (7, 1);
-        java.awt.Point awtPoint = new java.awt.Point(5, 2);
+        Point point1 = new Point(1, 7);
+        Point point2 = new Point(1, 7);
+        Point point3 = new Point(2, 8);
 
-        System.out.println("ru.courses.geometry.Point is (" + myPoint);
-        System.out.println("java.awt.Point is (" + awtPoint.x + ", " + awtPoint.y + ")");
+        System.out.println("Точка point1 равна точке point2: " + point1.equals(point2));
+        System.out.println("Точка point1 равна точке point3: " + point1.equals(point3));
+
+        try {
+            Point clonedPoint = (Point) point1.clone();
+            System.out.println("Склонированная точка: (" + clonedPoint.x + ", " + clonedPoint.y + ")");
+            System.out.println("Склонированная точка равна точке point1: " + clonedPoint.equals(point1));
+        }
+        catch (CloneNotSupportedException e)
+        {
+            e.printStackTrace();
+        }
+
+        System.out.println("Хэш-код точки point1: " + point1.hashCode());
+        System.out.println("Хэш-код точки point2: " + point2.hashCode());
+        System.out.println("Хэш-код точки point3: " + point3.hashCode());
     }
 }
