@@ -5,13 +5,20 @@ public class Sum {
         double result = 0;
 
         for (String arg : args) {
-            try {
-                double number = Double.parseDouble(arg);
-                result += number;
-            } catch (NumberFormatException e) {
+            if (Number(arg)) {
+                result += Double.parseDouble(arg);
             }
         }
 
         return result;
+    }
+
+    private static boolean Number(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
