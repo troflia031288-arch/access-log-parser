@@ -44,8 +44,9 @@ public class Main {
 
                 String line;
                 int totalNumber = 0;
-                int max = 0;
-                int min = Integer.MAX_VALUE;
+                int googlebotNumber = 0;
+                int yandexbotNumber = 0;
+
 
                 while ((line = reader.readLine()) != null) {
                     totalNumber++;
@@ -55,17 +56,38 @@ public class Main {
                         throw new LineLengthException("Длина строки превышает 1024 символа! Длина строки = " + length);
                     }
 
-                    if (length > max) {
-                        max = length;
-                    }
-                    if (length < min) {
-                        min = length;
+                    if (length > 0) {
+                        String userAgent = line.trim();
+
+                        int startInd = userAgent.indexOf('(');
+                        int endInd = userAgent.indexOf(')');
+                        if (startInd != -1 && endInd != -1) {
+                            String firstBrackets = userAgent.substring(startInd + 1, endInd);
+                            String[] parts = firstBrackets.split(";");
+
+                            if (parts.length >= 2) {
+                                String fragment = parts[1].trim();
+                                String programName = fragment.split("/")[0];
+
+                                // Подсчет запросов от Googlebot и YandexBot
+                                if (programName.equalsIgnoreCase("Googlebot")) {
+                                    googlebotNumber++;
+                                } else if (programName.equalsIgnoreCase("YandexBot")) {
+                                    yandexbotNumber++;
+                                }
+                            }
+                        }
                     }
                 }
 
                 System.out.println("Всего строк в файле = " + totalNumber);
-                System.out.println("Самая длинная строка имеет длину = " + max);
-                System.out.println("Самая короткая строка имеет длину = " + (min == Integer.MAX_VALUE ? 0 : min));
+                int totalBots = googlebotNumber + yandexbotNumber;
+                double googlebotPercentage = totalBots > 0 ? (double) googlebotNumber / totalBots * 100 : 0;
+                double yandexbotPercentage = totalBots > 0 ? (double) yandexbotNumber / totalBots * 100 : 0;
+
+                System.out.printf("Доля запросов от Googlebot: %.2f%%\n", googlebotPercentage);
+                System.out.printf("Доля запросов от YandexBot: %.2f%%\n", yandexbotPercentage);
+
 
             } catch (LineLengthException ex) {
                 System.err.println("Ошибка: " + ex.getMessage());
