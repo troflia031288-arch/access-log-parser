@@ -1,103 +1,25 @@
 package ru.courses.main;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
-
-class LineLengthException extends RuntimeException {
-    public LineLengthException(String message) {
-        super(message);
-    }
-}
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        int count = 0;
+        int N = 16;
+        ArrayList<Integer> arrayList = new ArrayList<>();
 
-        while (true) {
-            System.out.println("Укажите путь к файлу: ");
-            String path = new Scanner(System.in).nextLine();
-            File file = new File(path);
-            boolean fileExists = file.exists();
-            boolean isDirectory = file.isDirectory();
-
-            if (!fileExists) {
-                System.out.println("Указанный файл не существует");
-                continue;
-            }
-            if (isDirectory) {
-                System.out.println("Указанный путь является является путём к папке, а не к файлу");
-                continue;
-            }
-
-            else {
-                count++;
-                System.out.println("Путь указан верно");
-                System.out.println("Это файл номер " + count);
-
-            }
-
-            try (FileReader fileReader = new FileReader(path);
-                 BufferedReader reader = new BufferedReader(fileReader)) {
-
-                String line;
-                int totalNumber = 0;
-                int googlebotNumber = 0;
-                int yandexbotNumber = 0;
-
-
-                while ((line = reader.readLine()) != null) {
-                    totalNumber++;
-                    int length = line.length();
-
-                    if (length > 1024) {
-                        throw new LineLengthException("Длина строки превышает 1024 символа! Длина строки = " + length);
-                    }
-
-                    if (length > 0) {
-                        String userAgent = line.trim();
-
-                        int startInd = userAgent.indexOf('(');
-                        int endInd = userAgent.indexOf(')');
-                        if (startInd != -1 && endInd != -1) {
-                            String firstBrackets = userAgent.substring(startInd + 1, endInd);
-                            String[] parts = firstBrackets.split(";");
-
-                            if (parts.length >= 2) {
-                                String fragment = parts[1].trim();
-                                String programName = fragment.split("/")[0];
-
-                                // Подсчет запросов от Googlebot и YandexBot
-                                if (programName.equalsIgnoreCase("Googlebot")) {
-                                    googlebotNumber++;
-                                } else if (programName.equalsIgnoreCase("YandexBot")) {
-                                    yandexbotNumber++;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                System.out.println("Всего строк в файле = " + totalNumber);
-                int totalBots = googlebotNumber + yandexbotNumber;
-                double googlebotPercentage = totalBots > 0 ? (double) googlebotNumber / totalBots * 100 : 0;
-                double yandexbotPercentage = totalBots > 0 ? (double) yandexbotNumber / totalBots * 100 : 0;
-
-                System.out.printf("Доля запросов от Googlebot: %.2f%%\n", googlebotPercentage);
-                System.out.printf("Доля запросов от YandexBot: %.2f%%\n", yandexbotPercentage);
-
-
-            } catch (LineLengthException ex) {
-                System.err.println("Ошибка: " + ex.getMessage());
-                throw new RuntimeException("Ошибка обработки файла. Длина строки превышает 1024 символа", ex);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-
+        for (int i = 1; i <= N; i++) {
+            arrayList.add(i);
         }
+
+        System.out.println("Начальный список: " + arrayList);
+
+        for (int i = 0; i < N; i += 2) {
+            int a = arrayList.get(i);
+            arrayList.set(i, arrayList.get(i + 1));
+            arrayList.set(i + 1, a);
+        }
+
+        System.out.println("Список после перестановки элементов: " + arrayList);
     }
 }
