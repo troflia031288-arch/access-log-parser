@@ -1,25 +1,28 @@
 package ru.courses.main;
-
-import java.util.ArrayList;
-import java.util.List;
+import ru.courses.main.*;
 
 public class Main {
     public static void main(String[] args) {
-        int N = 16;
-        ArrayList<Integer> arrayList = new ArrayList<>();
+        // Инициализация массива целых чисел
+        int[] array = {64, 34, 25, 12, 22, 11, 90};
 
-        for (int i = 1; i <= N; i++) {
-            arrayList.add(i);
+        // Вывод исходного массива
+        System.out.println("Исходный массив:");
+        printArray(array);
+
+        // Вызов метода сортировки пузырьком
+        ru.courses.main.Bubble.Bubble.bubbleSort(array);
+
+        // Вывод отсортированного массива
+        System.out.println("Отсортированный массив:");
+        printArray(array);
+    }
+
+    // Метод для печати элементов массива
+    public static void printArray(int[] array) {
+        for (int num : array) {
+            System.out.print(num + " ");
         }
-
-        System.out.println("Начальный список: " + arrayList);
-
-        for (int i = 0; i < N; i += 2) {
-            int a = arrayList.get(i);
-            arrayList.set(i, arrayList.get(i + 1));
-            arrayList.set(i + 1, a);
-        }
-
-        System.out.println("Список после перестановки элементов: " + arrayList);
+        System.out.println(); // Переход на новую строку
     }
 }
