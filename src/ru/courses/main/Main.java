@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+//import ru.courses.main.Statistics;
+
 class LineLengthException extends RuntimeException {
     public LineLengthException(String message) {
         super(message);
@@ -28,28 +30,21 @@ public class Main {
                 continue;
             }
             if (isDirectory) {
-                System.out.println("Указанный путь является является путём к папке, а не к файлу");
+                System.out.println("Указанный путь является путём к папке, а не к файлу");
                 continue;
-            }
-
-            else {
+            } else {
                 count++;
                 System.out.println("Путь указан верно");
                 System.out.println("Это файл номер " + count);
-
             }
 
             try (FileReader fileReader = new FileReader(path);
                  BufferedReader reader = new BufferedReader(fileReader)) {
 
                 String line;
-                int totalNumber = 0;
-                int googlebotNumber = 0;
-                int yandexbotNumber = 0;
-
+                Statistics statistics = new Statistics();
 
                 while ((line = reader.readLine()) != null) {
-                    totalNumber++;
                     int length = line.length();
 
                     if (length > 1024) {
@@ -57,47 +52,21 @@ public class Main {
                     }
 
                     if (length > 0) {
-                        String userAgent = line.trim();
-
-                        int startInd = userAgent.indexOf('(');
-                        int endInd = userAgent.indexOf(')');
-                        if (startInd != -1 && endInd != -1) {
-                            String firstBrackets = userAgent.substring(startInd + 1, endInd);
-                            String[] parts = firstBrackets.split(";");
-
-                            if (parts.length >= 2) {
-                                String fragment = parts[1].trim();
-                                String programName = fragment.split("/")[0];
-
-                                // Подсчет запросов от Googlebot и YandexBot
-                                if (programName.equalsIgnoreCase("Googlebot")) {
-                                    googlebotNumber++;
-                                } else if (programName.equalsIgnoreCase("YandexBot")) {
-                                    yandexbotNumber++;
-                                }
-                            }
-                        }
+                        LogEntry entry = new LogEntry(line);
+                        statistics.addEntry(entry);
                     }
                 }
 
-                System.out.println("Всего строк в файле = " + totalNumber);
-                int totalBots = googlebotNumber + yandexbotNumber;
-                double googlebotPercentage = totalBots > 0 ? (double) googlebotNumber / totalBots * 100 : 0;
-                double yandexbotPercentage = totalBots > 0 ? (double) yandexbotNumber / totalBots * 100 : 0;
-
-                System.out.printf("Доля запросов от Googlebot: %.2f%%\n", googlebotPercentage);
-                System.out.printf("Доля запросов от YandexBot: %.2f%%\n", yandexbotPercentage);
+                System.out.printf("Общий трафик: %.2f байт в час\n", statistics.getTrafficRate());
 
 
             } catch (LineLengthException ex) {
                 System.err.println("Ошибка: " + ex.getMessage());
-                throw new RuntimeException("Ошибка обработки файла. Длина строки превышает 1024 символа", ex);
             } catch (IOException ex) {
                 ex.printStackTrace();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-
         }
     }
 }
